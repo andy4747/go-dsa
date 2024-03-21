@@ -1,13 +1,5 @@
-# Recursion
+#include <stdio.h>
 
-### Exercises (Using Recursion)
-
-#### Get the max and min value of an array. (2 Different Function)
-
-#### Get the average of an integer array.
-
-#### Write a function that computes the sum of an array.
-```c++
 // Returns sum of an array using for loop.
 int sum_with_loop(int *arr, size_t n)
 {
@@ -31,4 +23,13 @@ int sum_with_recursion(int *arr, size_t n)
   // recursive case, add the first element with the sum of remaining elements.
   return arr[0] + sum_with_recursion(arr + 1, n - 1);
 }
-```
+
+int main()
+{
+  int arr[] = {643, 54, 6, 76, 768, 4435, 677, 8768, 4354, 8797};
+  size_t size = sizeof(arr) / sizeof(int);
+  int sum_loop_value = sum_with_loop(arr, size);
+  int sum_recursion_value = sum_with_recursion(arr, size);
+  printf("%d\n", sum_loop_value);
+  printf("%d\n", sum_recursion_value);
+}
