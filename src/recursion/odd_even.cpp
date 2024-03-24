@@ -16,7 +16,7 @@ int odd_even(int n)
   }
 }
 
-int main()
+int odd_even_main()
 {
   int a;
   printf("Enter a number: ");
@@ -29,4 +29,5 @@ int main()
   {
     printf("The number is Odd\n");
   }
+  return 0;
 }

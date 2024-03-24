@@ -24,7 +24,7 @@ int sum_with_recursion(int *arr, size_t n)
   return arr[0] + sum_with_recursion(arr + 1, n - 1);
 }
 
-int main()
+int sum_main()
 {
   int arr[] = {643, 54, 6, 76, 768, 4435, 677, 8768, 4354, 8797};
   size_t size = sizeof(arr) / sizeof(int);
@@ -32,4 +32,5 @@ int main()
   int sum_recursion_value = sum_with_recursion(arr, size);
   printf("%d\n", sum_loop_value);
   printf("%d\n", sum_recursion_value);
+  return 0;
 }
