@@ -30,7 +30,7 @@ int findMax(int arr[], int n)
   return (arr[n - 1] > findMax(arr, n - 1)) ? arr[n - 1] : findMax(arr, n - 1);
 }
 
-int main()
+int max_main()
 {
   int arr[] = {1, 4, 7, 6, 5};
   int n = sizeof(arr) / sizeof(arr[0]);

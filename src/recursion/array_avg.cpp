@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "../../include/recursion.h"
 
 double average_with_loop(int *arr, size_t n)
 {
@@ -21,7 +22,7 @@ double average_with_recursion(int *arr, size_t n)
   return (arr[n - 1] + (n - 1) * average_with_recursion(arr, n - 1)) / n;
 }
 
-int main()
+int avg_main()
 {
   int arr[] = {10, 20, 30};
   size_t size = sizeof(arr) / sizeof(arr[0]);
@@ -29,4 +30,5 @@ int main()
   double avg_recursion_value = average_with_recursion(arr, size);
   printf("%.2f\n", avg_loop_value);
   printf("%.2f\n", avg_recursion_value);
+  return 0;
 }
