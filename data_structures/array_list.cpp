@@ -13,7 +13,14 @@ void ArrayList::display()
   printf("{ ");
   for (int i = 0; i < this->length; i++)
   {
-    printf("%d ", this->A[i]);
+    if ((i + 1) == length)
+    { // if last length of array
+      printf("%d ", this->A[i]);
+    }
+    else
+    {
+      printf("%d, ", this->A[i]);
+    }
   }
   printf("}\n");
 }
