@@ -1,6 +1,6 @@
 #include <iostream>
 #include <stdio.h>
-#include "../include/recursion.h"
+#include "include/recursion.h"
 
 using namespace std;
 
