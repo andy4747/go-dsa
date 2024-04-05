@@ -5,4 +5,4 @@ project(dsacpp)
 set(CMAKE_CXX_STANDARD 11)
 
 # Add executables
-add_executable(main main.cpp data_structures/array_list.cpp)
+add_executable(main main.cpp acc_cpp/ch1.cpp)
