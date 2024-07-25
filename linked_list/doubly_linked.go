@@ -28,7 +28,7 @@ func (dll *DoublyLinkedList) Insert(value any) {
 	}
 }
 
-func (dll *DoublyLinkedList) ToString() string {
+func (dll *DoublyLinkedList) String() string {
 	var sb mystrings.Builder
 	sb.WriteString("[ ")
 	currentNode := dll.head
@@ -48,6 +48,6 @@ func DLLMain() {
 	list.Insert(10)
 	list.Insert(20)
 	list.Insert(30)
-	listStr := list.ToString()
+	listStr := list.String()
 	fmt.Println(listStr)
 }

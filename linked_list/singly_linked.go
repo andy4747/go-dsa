@@ -1,6 +1,9 @@
 package linkedlist
 
-import "fmt"
+import (
+	"dsa/mystrings"
+	"fmt"
+)
 
 type SNode struct {
 	value any
@@ -23,21 +26,22 @@ func (sll *SinglyLinkedList) Insert(value any) {
 	}
 }
 
-func (sll *SinglyLinkedList) PrintList() {
-	currentNode := sll.head
-	fmt.Printf("[ ")
+func (dll *SinglyLinkedList) String() string {
+	var sb mystrings.Builder
+	sb.WriteString("[ ")
+	currentNode := dll.head
 	for currentNode != nil {
+		sb.WriteString(fmt.Sprintf("%v", currentNode.value))
 		if currentNode.next != nil {
-			fmt.Printf("%v, ", currentNode.value)
-		} else {
-			fmt.Printf("%v ]", currentNode.value)
+			sb.WriteString(", ")
 		}
 		currentNode = currentNode.next
 	}
-	fmt.Println()
+	sb.WriteString(" ]")
+	return sb.String()
 }
 
-func SLLMainExample() {
+func SLLMain() {
 	list := SinglyLinkedList{}
 	list.Insert(10)
 	list.Insert(20)
@@ -47,5 +51,6 @@ func SLLMainExample() {
 	list.Insert(60)
 	list.Insert(70)
 	list.Insert(80)
-	list.PrintList()
+	listStr := list.String()
+	fmt.Println(listStr)
 }
