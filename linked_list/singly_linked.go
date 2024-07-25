@@ -26,6 +26,25 @@ func (sll *SinglyLinkedList) Insert(value any) {
 	}
 }
 
+func (sll *SinglyLinkedList) Delete() *SNode {
+	if sll.head == nil {
+		return nil
+	}
+	removedNode := sll.tail
+	if sll.head == sll.tail { // if there is only one node in the list
+		sll.head = nil
+		sll.tail = nil
+	} else {
+		currentNode := sll.head
+		for currentNode.next != sll.tail { // traverse to the node just before the tail
+			currentNode = currentNode.next
+		}
+		currentNode.next = nil
+		sll.tail = currentNode // update the new tail node
+	}
+	return removedNode
+}
+
 func (dll *SinglyLinkedList) String() string {
 	var sb mystrings.Builder
 	sb.WriteString("[ ")
@@ -51,6 +70,7 @@ func SLLMain() {
 	list.Insert(60)
 	list.Insert(70)
 	list.Insert(80)
+	list.Delete()
 	listStr := list.String()
 	fmt.Println(listStr)
 }
