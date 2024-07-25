@@ -1,8 +1,8 @@
 package linkedlist
 
 import (
+	"dsa/mystrings"
 	"fmt"
-	"strings"
 )
 
 type Node struct {
@@ -29,7 +29,7 @@ func (dll *DoublyLinkedList) Insert(value any) {
 }
 
 func (dll *DoublyLinkedList) ToString() string {
-	var sb strings.Builder
+	var sb mystrings.Builder
 	sb.WriteString("[ ")
 	currentNode := dll.head
 	for currentNode != nil {
