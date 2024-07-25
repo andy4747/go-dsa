@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../include/recursion.h"
+#include "../../include/recursion.h"
 
 double average_with_loop(int *arr, size_t n)
 {

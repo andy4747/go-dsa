@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../include/recursion.h"
+#include "../../include/recursion.h"
 
 // Returns sum of an array using for loop.
 int sum_with_loop(int *arr, size_t n)

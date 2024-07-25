@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../include/recursion.h"
+#include "../../include/recursion.h"
 
 /* Tracing Tree
 findMax({1, 4, 5, 6, 7}, 5)
