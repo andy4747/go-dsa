@@ -28,6 +28,22 @@ func (dll *DoublyLinkedList) Insert(value any) {
 	}
 }
 
+func (dll *DoublyLinkedList) Delete() *Node {
+	if dll.head == nil {
+		return nil
+	}
+	removedNode := dll.tail
+
+	dll.tail = dll.tail.prev
+	if dll.tail != nil {
+		dll.tail.next = nil
+	} else {
+		dll.head = nil
+	}
+	removedNode.prev = nil
+	return removedNode
+}
+
 func (dll *DoublyLinkedList) String() string {
 	var sb mystrings.Builder
 	sb.WriteString("[ ")
@@ -48,6 +64,7 @@ func DLLMain() {
 	list.Insert(10)
 	list.Insert(20)
 	list.Insert(30)
+	list.Delete()
 	listStr := list.String()
 	fmt.Println(listStr)
 }
