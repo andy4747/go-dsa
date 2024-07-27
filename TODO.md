@@ -6,12 +6,13 @@
 
  - ~~Find the maximum element in an array~~
  - ~~Reverse an array in-place~~
- - Remove duplicates from a sorted array
+ - ~~Remove duplicates from a sorted array in place~~
  - Implement a basic array rotation
  - Find the second largest element in an array
  - Implement Bubble Sort
  - Implement Linear Search
  - Implement Binary Search on a sorted array
+
 
 #### Medium:
 
@@ -35,3 +36,4 @@
  - Implement Quick Sort
  - Implement Heap Sort
  - Implement Radix Sort
+
