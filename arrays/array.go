@@ -50,6 +50,7 @@ func (a *Array) Get(i int) Data {
 	return a.arr[i]
 }
 
+// Add adds the element in the array
 func (a *Array) Add(v Data) {
 	if a.len == a.capacity {
 		a.Resize()
@@ -66,13 +67,14 @@ func (a *Array) Set(i int, data Data) {
 	a.arr[i] = data
 }
 
-// func (a *Array[T]) PushBack(v T) {
-// 	for i := 0; i< a.len; i++ {
-// 		if a.arr[i] == v {
-// 			a.arr[i], a.arr[a.len-1] = a.arr[a.len-1], a.arr[i]
-// 		}
-// 	}
-// }
+// PushBack pushes the v at the end of the array
+func (a *Array) PushBack(v Data) {
+	if a.len == a.capacity {
+		a.Resize()
+	}
+	a.arr[a.len] = v
+	a.len++
+}
 
 // PopBack will pop and return the element at the end of the array.
 func (a *Array) PopBack() Data {
@@ -102,6 +104,7 @@ func (a *Array) IsEmpty() bool {
 	return a.len == 0
 }
 
+// Remove removes the item at index i
 func (a *Array) Remove(i int) error {
 	err := a.CheckRange(i)
 	if err != nil {
