@@ -1,8 +1,7 @@
 package arrays
 
-import "dsa/types"
-
-func Max[T types.Number](arr []T) T {
+// Max returns max number from the given slice
+func Max(arr []int) int {
 	max := arr[0]
 	for _, v := range arr {
 		if v > max {
