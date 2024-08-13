@@ -86,17 +86,12 @@ func (a *Array) PopBack() Data {
 
 // Resize will double the capacity of the array
 func (a *Array) Resize() {
-	// newArr := make([]Data, a.capacity*2)
-	// newArr = append(newArr, a.arr...)
-	// a.arr = newArr
-	newArr := Array{
-		len:      0,
-		capacity: a.capacity * 2,
-		arr:      make([]Data, a.capacity*2),
-	}
-	newArr.arr = append(newArr.arr, a.arr...)
-	
-	a = &newArr
+	newCapacity := a.capacity * 2
+	newArr := make([]Data, newCapacity)
+
+	copy(newArr, a.arr)
+	a.arr = newArr
+	a.capacity = newCapacity
 }
 
 // CheckRange checks the index i exists
