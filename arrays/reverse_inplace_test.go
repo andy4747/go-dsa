@@ -26,7 +26,9 @@ func TestReverseInPlace(t *testing.T) {
 	}
 	for i, test := range tests {
 		ReverseInplace(test.list)
-		if !slices.Equal(test.list, test.reversed) {
+		if slices.Equal(test.list, test.reversed) {
+			t.Logf("Passed test case #%d. Got %#v", i, test.list)
+		} else {
 			t.Fatalf("Failed test case #%d. Want %#v got %#v", i, test.reversed, test.list)
 		}
 	}
