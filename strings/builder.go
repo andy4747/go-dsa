@@ -1,4 +1,4 @@
-package mystrings
+package strings
 
 type Builder struct {
 	buf []byte

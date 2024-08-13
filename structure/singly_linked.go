@@ -1,7 +1,7 @@
-package linkedlist
+package structure
 
 import (
-	"dsa/mystrings"
+	"dsa/strings"
 	"fmt"
 )
 
@@ -46,7 +46,7 @@ func (sll *SinglyLinkedList) Delete() *SNode {
 }
 
 func (dll *SinglyLinkedList) String() string {
-	var sb mystrings.Builder
+	var sb strings.Builder
 	sb.WriteString("[ ")
 	currentNode := dll.head
 	for currentNode != nil {
