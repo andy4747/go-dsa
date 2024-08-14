@@ -4,6 +4,7 @@ import (
 	"dsa/types"
 )
 
+// RemoveDuplicates remove duplicated from the arr
 func RemoveDuplicates[T types.Number](arr []T) []T {
 	if len(arr) == 0 {
 		return arr
