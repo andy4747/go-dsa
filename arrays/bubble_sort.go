@@ -13,8 +13,6 @@ so, no need to iterate over the sorted portion.
 
 package arrays
 
-//https://miro.medium.com/v2/resize:fit:776/1*7QsZkfrRGhAu5yxxeDdzsA.png
-
 func BubbleSort(arr []int) {
 	n := len(arr)
 	for i := 0; i < n-1; i++ {
