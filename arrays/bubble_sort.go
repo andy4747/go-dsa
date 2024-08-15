@@ -2,15 +2,13 @@
 Author: Angel Dhakal
 Date: 2024-08-14
 File: bubble_sort.go
-
+Time Complexity: O(n^2)
+Space Complexity: O(1)
 Problem: Bubbble sort the given array
-Pattern {
+Solution: {
 Iterate through the array, compare adjacent elements, swap the elements if out of order, repeat until no swaps needed.
 after each iteration of i, the leargest/smalles elements (in asc/desc respectively order) is always at the end of the array,
 so, no need to iterate over the sorted portion.
-
-Time Complexity: O(n^2)
-Space Complexity: O(1)
 }
 */
 
