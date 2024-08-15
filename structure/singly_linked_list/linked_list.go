@@ -1,22 +1,17 @@
-package structure
+package singly_linked_list
 
 import (
 	"dsa/strings"
 	"fmt"
 )
 
-type SNode struct {
-	value any
-	next  *SNode
-}
-
 type SinglyLinkedList struct {
-	head *SNode
-	tail *SNode
+	head *Node
+	tail *Node
 }
 
 func (sll *SinglyLinkedList) Insert(value any) {
-	newNode := &SNode{value: value}
+	newNode := &Node{value: value}
 	if sll.head == nil { // if the list is empty set head and tail to same node
 		sll.head = newNode
 		sll.tail = newNode
@@ -26,7 +21,7 @@ func (sll *SinglyLinkedList) Insert(value any) {
 	}
 }
 
-func (sll *SinglyLinkedList) Delete() *SNode {
+func (sll *SinglyLinkedList) Delete() *Node {
 	if sll.head == nil {
 		return nil
 	}

@@ -1,15 +1,9 @@
-package structure
+package doubly_linked_list
 
 import (
 	"dsa/strings"
 	"fmt"
 )
-
-type Node struct {
-	prev  *Node
-	value any
-	next  *Node
-}
 
 type DoublyLinkedList struct {
 	head *Node
