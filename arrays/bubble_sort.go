@@ -1,3 +1,16 @@
+/*
+Author: Angel Dhakal
+Date: 2024-08-14
+File: bubble_sort.go
+
+Problem: Bubbble sort the given array
+Pattern {
+Iterate through the array, compare adjacent elements, swap the elements if out of order, repeat until no swaps needed.
+after each iteration of i, the leargest/smalles elements (in asc/desc respectively order) is always at the end of the array,
+so, no need to iterate over the sorted portion.
+}
+*/
+
 package arrays
 
 //https://miro.medium.com/v2/resize:fit:776/1*7QsZkfrRGhAu5yxxeDdzsA.png
