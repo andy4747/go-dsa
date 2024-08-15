@@ -5,6 +5,8 @@ Date: 2024-08-08
 
 Problem: return the max int from the array of int.
 Pattern{
+Time Complexity: O(n)
+Space Complexity: O(1)
 }
 */
 package arrays

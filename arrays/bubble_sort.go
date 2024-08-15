@@ -8,6 +8,9 @@ Pattern {
 Iterate through the array, compare adjacent elements, swap the elements if out of order, repeat until no swaps needed.
 after each iteration of i, the leargest/smalles elements (in asc/desc respectively order) is always at the end of the array,
 so, no need to iterate over the sorted portion.
+
+Time Complexity: O(n^2)
+Space Complexity: O(1)
 }
 */
 
