@@ -23,7 +23,7 @@ func BubbleSort(arr []int) {
 				swapped = true
 			}
 		}
-		if swapped == false {
+		if !swapped {
 			break
 		}
 	}
