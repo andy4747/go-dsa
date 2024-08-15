@@ -1,11 +1,7 @@
 package arrays
 
-import (
-	"dsa/types"
-)
-
 // RemoveDuplicates remove duplicated from the arr
-func RemoveDuplicates[T types.Number](arr []T) []T {
+func RemoveDuplicates(arr []int) []int {
 	if len(arr) == 0 {
 		return arr
 	}
