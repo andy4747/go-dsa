@@ -9,8 +9,12 @@ https://github.com/diptomondal007/GoLangBooks/tree/master
 ## sorting
 
 - Selection Sort
-- Bubble Sort
+- ~~Bubble Sort~~
 - Insertion Sort
 - Merge Sort
 - Quick Sort
 - Heap Sort
+
+## searching
+
+- Binary Search
