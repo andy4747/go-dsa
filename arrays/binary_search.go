@@ -13,8 +13,19 @@ Solution:{
 package arrays
 
 func BinarySearch(arr []int, searchElement int) int {
-	//first := 0
-	//last := len(arr)-1
-	//mid :=
-	return 0
+	first := 0
+	last := len(arr) - 1
+	for first <= last {
+		mid := first + (last-first)/2
+		if arr[mid] == searchElement {
+			return mid
+		}
+		if searchElement > arr[mid] {
+			first = mid + 1
+		}
+		if searchElement < arr[mid] {
+			last = mid - 1
+		}
+	}
+	return -1
 }
