@@ -1,6 +1,6 @@
 /*
 Author: Angel Dhakal
-File: half_diamond_star_pattern.go
+File: half_diamond_star.go
 Date: 2024-08-18
 Problem: https://takeuforward.org/pattern/pattern-10-half-diamond-star-pattern/
 Time Complexity: O(n^2)
