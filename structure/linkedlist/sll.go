@@ -43,12 +43,6 @@ func (l *SinglyLinkedList[T]) AddToEnd(item T) {
 	if l.Head == nil {
 		l.AddToHead(item)
 	}
-	cur := l.Head
-	for cur != nil {
-		if cur.Next == nil {
-			cur.Next = newNode
-			newNode.Next = nil
-		}
-		cur = cur.Next
-	}
+	lastNode := l.LastNode()
+	lastNode.Next = newNode
 }
