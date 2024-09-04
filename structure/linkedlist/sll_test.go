@@ -6,10 +6,10 @@ import (
 )
 
 func TestSLL(t *testing.T) {
-	list := NewSinglyLinkedList[int]()
+	list := NewSLL[int]()
 	list.AddToHead(30)
 	list.AddToHead(20)
-	
+
 	t.Run("AddToHead", func(t *testing.T) {
 		want := []int{20, 30}
 		got := []int{}
@@ -22,9 +22,9 @@ func TestSLL(t *testing.T) {
 			t.Errorf("Test Failed. Want %#v, Got %#v", want, got)
 		}
 	})
-	
+
 	list.AddToHead(10)
-	
+
 	t.Run("Count", func(t *testing.T) {
 		wantCount := len([]int{10, 20, 30})
 		count := list.Count()
@@ -34,7 +34,7 @@ func TestSLL(t *testing.T) {
 			t.Errorf("Test Failed. Want Count: %v, Got Count: %v", wantCount, count)
 		}
 	})
-	
+
 	t.Run("LastNode", func(t *testing.T) {
 		currentLastNodeValue := 30
 		lastNode := list.LastNode()
@@ -47,12 +47,12 @@ func TestSLL(t *testing.T) {
 			t.Errorf("Test Failed. Want Node With Value: %v, Got Node With Value: %v", currentLastNodeValue, lastNode.Value)
 		}
 	})
-	
-	list.AddToEnd(40)
-	list.AddToEnd(50)
-	list.AddToEnd(60)
-	list.AddToEnd(70)
-	
+
+	list.AddToLast(40)
+	list.AddToLast(50)
+	list.AddToLast(60)
+	list.AddToLast(70)
+
 	t.Run("AddToEnd", func(t *testing.T) {
 		want := []int{10, 20, 30, 40, 50, 60, 70}
 		got := []int{}
