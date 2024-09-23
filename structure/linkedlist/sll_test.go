@@ -65,4 +65,18 @@ func TestSLL(t *testing.T) {
 			t.Errorf("Test Failed. Want %#v, Got %#v", want, got)
 		}
 	})
+
+	t.Run("Reverse", func(t *testing.T) {
+		want := []int{70, 60, 50, 40, 30, 20, 10}
+		got := []int{}
+		list.Reverse()
+		for cur := list.Head; cur != nil; cur = cur.Next {
+			got = append(got, cur.Value)
+		}
+		if reflect.DeepEqual(want, got) {
+			t.Logf("Test Passed. Want %#v, Got %#v", want, got)
+		} else {
+			t.Errorf("Test Failed. Want %#v, Got %#v", want, got)
+		}
+	})
 }

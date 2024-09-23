@@ -30,6 +30,18 @@ func (l *SLL[T]) Count() int {
 	return l.len
 }
 
+func (l *SLL[T]) Reverse() {
+	cur := l.Head
+	var prev *Node[T]
+	for cur != nil {
+		next := cur.Next
+		cur.Next = prev
+		prev = cur
+		cur = next
+	}
+	l.Head = prev
+}
+
 func (l *SLL[T]) AddToLast(value T) {
 	newNode := NewNode(value)
 	lastNode := l.LastNode()
