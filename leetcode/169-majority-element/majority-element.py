@@ -1,7 +1,7 @@
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         nMap = {}
-        for i, v in enumerate(nums):
+        for v in nums:
             nMap[v] = nMap.get(v, 0) + 1
         
         majorityItemCount = -1
