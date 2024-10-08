@@ -1,13 +1,12 @@
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
+        n = len(nums)
         nMap = {}
         for v in nums:
             nMap[v] = nMap.get(v, 0) + 1
         
-        majorityItemCount = -1
-        majorityItem = 0
+        n = n // 2
         for element, count in nMap.items():
-            if count > majorityItemCount:
-                majorityItemCount = count
-                majorityItem = element
-        return majorityItem
+            if count > n:
+                return element
+        return  -1
