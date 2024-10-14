@@ -4,12 +4,14 @@ public:
         unordered_map<int, int> count;
         int n = nums.size() - 1;
         int check = n / 2;
+        int result;
         for (int i : nums) {
             count[i]++;
             if (count[i] > check) {
-                return i;
+                result = i;
+                break;
             }
         }
-        return -1;
+        return result;
     }
 };
