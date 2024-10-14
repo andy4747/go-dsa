@@ -1,17 +1,20 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        if (s.size() != t.size()) {
-            return false;
+        int count[26] = {0};
+
+        // increment the count of chars from s
+        for (char i : s) {
+            count[i - 'a']++;
         }
-        unordered_map<char, int> sMap;
-        unordered_map<char, int> tMap;
-        for (int i = 0; i < s.size(); i++) {
-            sMap[s[i]]++;
-            tMap[t[i]]++;
+
+        // decrement the count of chars from t
+        for (char i : t) {
+            count[i - 'a']--;
         }
-        for (const auto& [chr, count] : sMap) {
-            if (tMap[chr] != count) {
+
+        for (int i : count) {
+            if (i != 0) {
                 return false;
             }
         }
