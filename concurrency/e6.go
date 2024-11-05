@@ -1,4 +1,4 @@
-package main
+package concurrency
 
 /*
 ### E6. Simple Producer (1-10)
@@ -11,4 +11,3 @@ package main
 - **Learning Focus:** Channel closing, range over channel
 - **Time:** 5 mins
 */
-

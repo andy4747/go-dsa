@@ -1,7 +1,7 @@
-package main
+package concurrency
 
 import (
-  "fmt"
+	"fmt"
 )
 
 /*
@@ -16,31 +16,30 @@ import (
 */
 
 func square(inp_ch chan int, out_ch chan int) {
-  for num := range inp_ch {
-    out_ch <- num * num
-  }
-  close(out_ch)
+	for num := range inp_ch {
+		out_ch <- num * num
+	}
+	close(out_ch)
 }
 
-func main() {
-  inp_ch := make(chan int)
-  out_ch := make(chan int)
+func Main_e5() {
+	inp_ch := make(chan int)
+	out_ch := make(chan int)
 
-  nums := []int{2,3,4,5,6}
+	nums := []int{2, 3, 4, 5, 6}
 
+	go square(inp_ch, out_ch)
 
-  go square(inp_ch, out_ch)
+	go func() {
+		for _, v := range nums {
+			inp_ch <- v
+		}
+		close(inp_ch)
+	}()
 
-  go func() {
-    for _, v := range nums {
-      inp_ch <- v
-    }
-    close(inp_ch)
-  } ()
+	for v := range out_ch {
+		fmt.Println(v)
+	}
 
-  for v := range out_ch {
-    fmt.Println(v)
-  }
-
-  fmt.Println("Program Completed")
+	fmt.Println("Program Completed")
 }
