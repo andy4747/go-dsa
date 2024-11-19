@@ -69,7 +69,7 @@ func pong(ch chan Message, wg *sync.WaitGroup) {
 	}
 }
 
-func Main_e4() {
+func MainE4() {
 	start := time.Now()
 	ch := make(chan Message)
 	done := make(chan bool)
@@ -85,4 +85,3 @@ func Main_e4() {
 	close(done)
 	log.Printf("Conversation completed in %v", time.Since(start))
 }
-

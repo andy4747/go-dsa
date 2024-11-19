@@ -20,7 +20,7 @@ func generate(limit int, ch chan<- int) {
 	close(ch)
 }
 
-func Main_e3() {
+func MainE3() {
 	ch := make(chan int, 5)
 	go generate(10, ch)
 	for n := range ch {

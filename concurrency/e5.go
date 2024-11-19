@@ -22,7 +22,7 @@ func square(inp_ch chan int, out_ch chan int) {
 	close(out_ch)
 }
 
-func Main_e5() {
+func MainE5() {
 	inp_ch := make(chan int)
 	out_ch := make(chan int)
 

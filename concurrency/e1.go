@@ -30,7 +30,7 @@ func E1() {
 	wg.Wait()
 }
 
-func Main_e1() {
+func MainE1() {
 	ch := make(chan string)
 	go greet(ch)
 	fmt.Println(<-ch)

@@ -23,7 +23,7 @@ func sleep(id int, wg *sync.WaitGroup) {
 	fmt.Println(id)
 }
 
-func Main_e2() {
+func MainE2() {
 	var wg sync.WaitGroup
 	for i := 1; i <= 3; i++ {
 		wg.Add(1)
