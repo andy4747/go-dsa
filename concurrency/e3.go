@@ -1,4 +1,4 @@
-package main
+package concurrency
 
 /*
  E3. Buffered Channel (size 5)
@@ -13,17 +13,17 @@ package main
 */
 
 func generate(limit int, ch chan<- int) {
-  for i := 1; i<= limit; i++ {
-    ch <- i
-    println("sent: ", i)
-  }
-  close(ch)
+	for i := 1; i <= limit; i++ {
+		ch <- i
+		println("sent: ", i)
+	}
+	close(ch)
 }
 
-func main(){
-  ch := make(chan int, 5)
-  go generate(10, ch)
-  for n := range ch {
-    println("rec: ", n)
-  }
+func MainE3() {
+	ch := make(chan int, 5)
+	go generate(10, ch)
+	for n := range ch {
+		println("rec: ", n)
+	}
 }

@@ -1,9 +1,9 @@
 package concurrency
 
 import (
-  "fmt"
-  "sync"
-  "time"
+	"fmt"
+	"sync"
+	"time"
 )
 
 /*
@@ -18,16 +18,16 @@ import (
 */
 
 func sleep(id int, wg *sync.WaitGroup) {
-  defer wg.Done()
-  time.Sleep(time.Duration(id*100) * time.Millisecond)
-  fmt.Println(id)
+	defer wg.Done()
+	time.Sleep(time.Duration(id*100) * time.Millisecond)
+	fmt.Println(id)
 }
 
-func main(){
-  var wg sync.WaitGroup
-  for i:=1;i<=3;i++{
-    wg.Add(1)
-    go sleep(i, &wg)
-  }
-  wg.Wait()
+func MainE2() {
+	var wg sync.WaitGroup
+	for i := 1; i <= 3; i++ {
+		wg.Add(1)
+		go sleep(i, &wg)
+	}
+	wg.Wait()
 }
