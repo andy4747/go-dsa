@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	linkedlist.DLLTest()
+	linkedlist.TestSList()
 }

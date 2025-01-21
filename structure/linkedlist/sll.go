@@ -2,158 +2,174 @@ package linkedlist
 
 import "fmt"
 
-type SinglyLinkedList[T comparable] struct {
-	head   *Node[T]
-	length int
+type SList[T comparable] struct {
+	head *SNode[T]
+	size int
 }
 
-func NewSinglyLinkedList[T comparable]() List[T] {
-	return &SinglyLinkedList[T]{
-		head:   nil,
-		length: 0,
+func NewSList[T comparable]() *SList[T] {
+	return &SList[T]{
+		head: nil,
+		size: 0,
 	}
 }
 
-func (sll *SinglyLinkedList[T]) InsertFront(data T) {
-	if sll.IsEmpty() {
-		sll.head = &Node[T]{Value: data}
-		sll.length++
-	} else {
-		newNode := &Node[T]{Value: data, Next: sll.head}
-		sll.head = newNode
-		sll.length++
+func (l *SList[T]) PushFront(data T) {
+	newNode := &SNode[T]{
+		Value: data,
+		Next:  nil,
 	}
-}
-
-func (sll *SinglyLinkedList[T]) InsertBack(data T) {
-	lastNode := sll.lastNode()
-	newNode := &Node[T]{Value: data, Next: nil}
-	lastNode.Next = newNode
-	sll.length++
-}
-
-func (sll *SinglyLinkedList[T]) DeleteFront() (T, error) {
-	var result T
-	if sll.IsEmpty() {
-		return result, fmt.Errorf("list is empty. cannot delete from front")
+	if l.head == nil {
+		l.head = newNode
+		l.size++
+		return
 	}
-	if sll.head.Next == nil {
-		result = sll.head.Value
-		sll.head = nil
-		sll.length--
-		return result, nil
-	} else {
-		result = sll.head.Value
-		newHead := sll.head.Next
-		sll.head = newHead
-		sll.length--
-		return result, nil
+	newNode.Next = l.head
+	l.head = newNode
+	l.size++
+}
+
+func (l *SList[T]) PushBack(data T) {
+	newNode := &SNode[T]{
+		Value: data,
+		Next:  nil,
 	}
-}
-
-func (sll *SinglyLinkedList[T]) DeleteBack() (T, error) {
-	var result T
-	for cur := sll.head; cur != nil; cur = cur.Next {
-		if cur.Next.Next == nil {
-			result = cur.Next.Value
-			cur.Next = nil
-			sll.length--
-		}
+	if l.head == nil {
+		l.head = newNode
+		l.size++
+		return
 	}
-	return result, nil
-}
-
-func (sll *SinglyLinkedList[T]) lastNode() *Node[T] {
-	var lastNode *Node[T]
-	for cur := sll.head; cur != nil; cur = cur.Next {
-		if cur.Next == nil {
-			lastNode = cur
-		}
-	}
-	return lastNode
-}
-
-func (sll *SinglyLinkedList[T]) IsEmpty() bool {
-	if sll.head == nil {
-		return true
-	}
-	return false
-}
-
-func (sll *SinglyLinkedList[T]) Length() int {
-	return sll.length
-}
-
-func (sll *SinglyLinkedList[T]) Clear() {
-	sll.head = nil
-	sll.length = 0
-}
-
-func (sll *SinglyLinkedList[T]) PrintList() {
-	cur := sll.head
+	cur := l.head
 	for cur != nil {
-		fmt.Printf("%v ", cur.Value)
+		if cur.Next == nil {
+			cur.Next = newNode
+			break
+		}
 		cur = cur.Next
 	}
+	l.size++
+}
+
+func (l *SList[T]) PopFront() error {
+	if l.head == nil {
+		return fmt.Errorf("list is empty")
+	}
+	next := l.head.Next
+	l.head = next
+	l.size--
+	return nil
+}
+
+func (l *SList[T]) PopBack() error {
+	if l.head == nil {
+		return fmt.Errorf("list is empty")
+	}
+	cur := l.head
+	for cur != nil {
+		if cur.Next.Next == nil {
+			cur.Next = nil
+		}
+		cur = cur.Next
+	}
+	l.size--
+	return nil
+}
+
+func (l *SList[T]) Insert(index int, data T) error {
+	if index >= l.size || index < 0 {
+		return fmt.Errorf("index out of bounds")
+	}
+	if l.head == nil && index != 0 {
+		return fmt.Errorf("cannot insert at index %d", index)
+	}
+	count := 0
+	cur := l.head
+	for cur != nil {
+		if count == index-1 {
+			next := cur.Next
+			newNode := &SNode[T]{Value: data, Next: next}
+			cur.Next = newNode
+			l.size++
+			return nil
+		}
+		cur = cur.Next
+		count++
+	}
+	return fmt.Errorf("could not insert at index %d", index)
+}
+
+func (l *SList[T]) Remove(index int, data T) error {
+	if l.head == nil {
+		return fmt.Errorf("cannot remove at index %d", index)
+	}
+	if index >= l.size || index < 0 {
+		return fmt.Errorf("index out of bounds")
+	}
+	count := 0
+	cur := l.head
+	for cur != nil {
+		if count == index-1 {
+			newNext := cur.Next.Next
+			cur.Next = newNext
+			l.size--
+			return nil
+		}
+		cur = cur.Next
+		count++
+	}
+	return fmt.Errorf("could not remove at index %d", index)
+}
+
+func (l *SList[T]) Size() int {
+	return l.size
+}
+
+func (l *SList[T]) IsEmpty() bool {
+	return l.size == 0
+}
+
+func (l *SList[T]) Clear() {
+	l.head = nil
+	l.size = 0
+}
+
+func (l *SList[T]) ForEach(callback func(data T)) {
+	cur := l.head
+	for cur != nil {
+		callback(cur.Value)
+		cur = cur.Next
+	}
+}
+
+func (l *SList[T]) PrintList() {
+	l.ForEach(func(data T) {
+		fmt.Printf("%v ", data)
+	})
 	fmt.Println()
 }
 
-func (sll *SinglyLinkedList[T]) Contains(data T) bool {
-	for cur := sll.head; cur != nil; cur = cur.Next {
+func (l *SList[T]) Find(data T) int {
+	cur := l.head
+	index := 0
+	for cur != nil {
 		if cur.Value == data {
-			return true
+			return index
 		}
+		index++
+		cur = cur.Next
 	}
-	return false
+	return -1
 }
 
-func (sll *SinglyLinkedList[T]) PeekFront() (T, error) {
-	var result T
-	if sll.IsEmpty() {
-		return result, fmt.Errorf("list is empty. no values to peek")
-	}
-	return sll.head.Value, nil
-}
+func (l *SList[T]) Reverse() {}
 
-func (sll *SinglyLinkedList[T]) PeekBack() (T, error) {
-	var result T
-	if sll.IsEmpty() {
-		return result, fmt.Errorf("list is empty. no values to peek")
-	}
-	lastNode := sll.lastNode()
-	return lastNode.Value, nil
-}
-
-func SLLTest() {
-	sll := NewSinglyLinkedList[int]()
-	sll.InsertFront(10)
-	sll.InsertFront(20)
-	sll.InsertFront(30)
-	sll.InsertFront(40)
-	sll.InsertFront(50)
-	sll.InsertFront(60)
-	sll.InsertFront(70)
-	sll.InsertFront(80)
-	sll.InsertBack(01)
-
-	sll.PrintList()
-
-	sll.DeleteFront()
-	sll.DeleteFront()
-
-	sll.PrintList()
-
-	sll.DeleteBack()
-	sll.DeleteBack()
-
-	sll.PrintList()
-
-	fmt.Println(sll.Contains(20))
-
-	fmt.Println(sll.PeekFront())
-	fmt.Println(sll.PeekBack())
-
-	sll.PrintList()
-	sll.Clear()
-	sll.PrintList()
+func TestSList() {
+	l := NewSList[int]()
+	l.PushBack(10)
+	l.PushBack(20)
+	l.PushBack(30)
+	l.PushBack(40)
+	l.PushFront(5)
+	l.PushFront(1)
+	l.PrintList()
 }
