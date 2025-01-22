@@ -52,6 +52,7 @@ func (l *List[T]) PushBack(data T) error {
 		if cur.Next == nil {
 			cur.Next = newNode
 			l.tail = newNode
+			l.size++
 			return nil
 		}
 		cur = cur.Next
@@ -125,7 +126,7 @@ func (l *List[T]) Insert(index int, data T) error {
 	return nil
 }
 
-func (l *List[T]) Remove(index int, data T) error {
+func (l *List[T]) Remove(index int, data *T) error {
 	if index < 0 || index >= l.Size() {
 		return fmt.Errorf("index out of bounds")
 	}
@@ -145,6 +146,8 @@ func (l *List[T]) Remove(index int, data T) error {
 	for cur != nil {
 		if count == index-1 {
 			newNext := cur.Next.Next
+			newNext.Prev = cur
+			*data = cur.Next.Value
 			cur.Next = newNext
 			l.size--
 			return nil
@@ -196,6 +199,7 @@ func (l *List[T]) ForEach(callback func(data T)) {
 	cur := l.head
 	for cur != nil {
 		callback(cur.Value)
+		cur = cur.Next
 	}
 }
 
@@ -212,17 +216,57 @@ func (l *List[T]) TraverseFront(index int, callback func(data T)) {
 }
 
 func (l *List[T]) TraverseBack(index int, callback func(data T)) {
-	count := 0
+	count := l.Size() - 1
 	cur := l.tail
 	for cur != nil {
 		if count <= index {
 			callback(cur.Value)
 		}
-		count++
+		count--
 		cur = cur.Prev
 	}
 }
 
 func (l *List[T]) Reverse() {
 	cur := l.head
+	var prev *Node[T] = nil
+	for cur != nil {
+		next := cur.Next
+		cur.Next = prev
+		cur.Prev = next
+		prev = cur
+		cur = next
+	}
+	l.tail = l.head
+	l.head = prev
+}
+
+func TestList() {
+	l := NewList[int]()
+	l.PushBack(10)
+	l.PushBack(20)
+	l.PushBack(30)
+	l.PushBack(40)
+	l.PushFront(5)
+	l.PushFront(1)
+	l.PrintList()
+
+	var remVal int
+	l.Remove(1, &remVal)
+	fmt.Printf("Removed Value is: %d\n", remVal)
+	l.PrintList()
+	l.Reverse()
+	fmt.Println("After Reverse")
+	l.PrintList()
+
+	fmt.Println("Test Traverse Back")
+	l.TraverseBack(4, func(data int) {
+		fmt.Printf("%d ", data)
+	})
+	fmt.Println()
+	fmt.Println("Test Traverse Front")
+	l.TraverseFront(0, func(data int) {
+		fmt.Printf("%d ", data)
+	})
+	fmt.Println()
 }
