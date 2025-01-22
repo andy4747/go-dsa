@@ -98,7 +98,7 @@ func (l *SList[T]) Insert(index int, data T) error {
 	return fmt.Errorf("could not insert at index %d", index)
 }
 
-func (l *SList[T]) Remove(index int, data T) error {
+func (l *SList[T]) Remove(index int, data *T) error {
 	if l.head == nil {
 		return fmt.Errorf("cannot remove at index %d", index)
 	}
@@ -110,6 +110,7 @@ func (l *SList[T]) Remove(index int, data T) error {
 	for cur != nil {
 		if count == index-1 {
 			newNext := cur.Next.Next
+			*data = cur.Next.Value
 			cur.Next = newNext
 			l.size--
 			return nil
@@ -161,7 +162,17 @@ func (l *SList[T]) Find(data T) int {
 	return -1
 }
 
-func (l *SList[T]) Reverse() {}
+func (l *SList[T]) Reverse() {
+	cur := l.head
+	var pv *SNode[T] = nil
+	for cur != nil {
+		next := cur.Next
+		cur.Next = pv
+		pv = cur
+		cur = next
+	}
+	l.head = pv
+}
 
 func TestSList() {
 	l := NewSList[int]()
@@ -171,5 +182,10 @@ func TestSList() {
 	l.PushBack(40)
 	l.PushFront(5)
 	l.PushFront(1)
+	var remVal int
+	l.Remove(1, &remVal)
+	fmt.Printf("Removed Value is: %d\n", remVal)
+	l.PrintList()
+	l.Reverse()
 	l.PrintList()
 }
