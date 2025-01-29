@@ -1,9 +1,9 @@
 package main
 
 import (
-	"dsa/structure/linkedlist"
+	"dsa/structure/stack"
 )
 
 func main() {
-	linkedlist.TestSList()
+	stack.TestStack()
 }

@@ -1,6 +1,8 @@
 package linkedlist
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type SList[T comparable] struct {
 	head *SNode[T]
@@ -174,18 +176,122 @@ func (l *SList[T]) Reverse() {
 	l.head = pv
 }
 
+func (l *SList[T]) FloydCycleDetection() bool {
+	if l.head == nil || l.head.Next == nil {
+		return false
+	}
+	slow := l.head
+	fast := l.head
+	for slow != nil && fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+		if slow == fast {
+			return true
+		}
+	}
+	return false
+}
+
+func (l *SList[T]) FloydCycleDetectionNode() *SNode[T] {
+	fast := l.head
+	slow := l.head
+	for slow != nil && fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+		if fast == slow {
+			break
+		}
+	}
+	if fast == nil || fast.Next == nil {
+		return nil
+	}
+	slow = l.head
+	for slow != fast {
+		slow = slow.Next
+		fast = fast.Next
+	}
+	return fast
+}
+
+func (l *SList[T]) MiddleNode() *SNode[T] {
+	if l.head == nil {
+		return nil
+	}
+	slow := l.head
+	fast := l.head
+	for slow != nil && fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+	return slow
+}
+
+func (l *SList[T]) NthNodeFromBack(n int) *SNode[T] {
+	if l.head == nil {
+		return nil
+	}
+	first := l.head
+	last := l.head
+	count := 0
+	for count != n && last != nil {
+		last = last.Next
+		count++
+	}
+	for first != nil && last != nil {
+		first = first.Next
+		last = last.Next
+	}
+	return first
+}
+
+func (list *SList[T]) CreateLoop(index int) {
+	count := 0
+	cur := list.head
+	var idxNode *SNode[T] = nil
+	for cur != nil {
+		if count == index {
+			idxNode = cur
+		}
+		if cur.Next == nil {
+			cur.Next = idxNode
+			break
+		}
+		count++
+		cur = cur.Next
+	}
+	fmt.Printf("The loop is created from node at index %d to tail node\n", index)
+}
+
+func InsertIntItems(l *SList[int]) {
+	l.Clear()
+	items := []int{0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140}
+	for _, v := range items {
+		l.PushBack(v)
+	}
+}
+
 func TestSList() {
 	l := NewSList[int]()
-	l.PushBack(10)
-	l.PushBack(20)
-	l.PushBack(30)
-	l.PushBack(40)
-	l.PushFront(5)
-	l.PushFront(1)
-	var remVal int
-	l.Remove(1, &remVal)
-	fmt.Printf("Removed Value is: %d\n", remVal)
+	// l.PushBack(10)
+	// l.PushBack(20)
+	// l.PushBack(30)
+	// l.PushBack(40)
+	// l.PushFront(5)
+	// l.PushFront(1)
+	// var remVal int
+	// l.Remove(1, &remVal)
+	// fmt.Printf("Removed Value is: %d\n", remVal)
+	// l.PrintList()
+	// l.Reverse()
+	// l.PrintList()
+	InsertIntItems(l)
 	l.PrintList()
-	l.Reverse()
-	l.PrintList()
+	// l.Reverse()
+	// l.PrintList()
+	// l.CreateLoop(8)
+	// fmt.Printf("Cycle in loop: %v\n", l.FloydCycleDetection())
+	// loopNode := l.FloydCycleDetectionNode()
+	// fmt.Printf("%+v\n", loopNode)
+	fmt.Printf("%+v\n", l.MiddleNode())
+	fmt.Printf("%+v\n", l.NthNodeFromBack(5))
 }
