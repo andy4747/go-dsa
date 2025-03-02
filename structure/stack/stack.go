@@ -1,44 +1,63 @@
 package stack
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
-type Stack[T comparable] struct {
-	elements []T
-	size     int
+type Stacker[T comparable] interface {
+	Push(data T)
+	Pop() (T, error)
+	Peek() (T, error)
+	Size() int
+	IsEmpty() bool
+	Clear()
 }
 
-func NewStack[T comparable]() *Stack[T] {
+type Node[T comparable] struct {
+	Value T
+	Next  *Node[T]
+}
+
+type Stack[T comparable] struct {
+	head *Node[T]
+	size int
+}
+
+func NewStack[T comparable]() Stacker[T] {
 	return &Stack[T]{
-		elements: make([]T, 0),
-		size:     0,
+		head: nil,
+		size: 0,
 	}
 }
 
 func (s *Stack[T]) Push(data T) {
-	s.elements = append(s.elements[:s.size], data)
+	newNode := &Node[T]{
+		Value: data,
+		Next:  s.head,
+	}
+	s.head = newNode
 	s.size++
 }
+
 func (s *Stack[T]) Pop() (T, error) {
+	var result T
 	if s.IsEmpty() {
-		var zero T
-		return zero, fmt.Errorf("empty stack")
+		return result, errors.New("error: pop operation on empty stack")
 	}
-	result := s.elements[s.Size()-1]
-	if s.Size() > 1 {
-		s.elements = s.elements[:s.Size()-1]
-	} else {
-		s.elements = s.elements[0:]
-	}
+	result = s.head.Value
+	s.head = s.head.Next
 	s.size--
 	return result, nil
 }
 
 func (s *Stack[T]) Peek() (T, error) {
+	var result T
 	if s.IsEmpty() {
-		var zero T
-		return zero, fmt.Errorf("empty stack")
+		return result, errors.New("error: peek operation on empty stack")
 	}
-	return s.elements[s.Size()-1], nil
+	result = s.head.Value
+	return result, nil
 }
 
 func (s *Stack[T]) Size() int {
@@ -46,28 +65,29 @@ func (s *Stack[T]) Size() int {
 }
 
 func (s *Stack[T]) IsEmpty() bool {
-	return s.Size() == 0
+	return s.size == 0
 }
 
-func (s *Stack[T]) Print() {
-	for i := 0; i < s.Size(); i++ {
-		fmt.Printf("%+v\n", s.elements[i])
+func (s *Stack[T]) Clear() {
+	s.head = nil
+	s.size = 0
+}
+
+func TestLinkedStack() {
+	stack := NewStack[int]()
+
+	// Push some elements
+	stack.Push(10)
+	stack.Push(20)
+	stack.Push(30)
+
+	// Peek at the top element
+	top, _ := stack.Peek()
+	fmt.Println("Top element:", top)
+
+	// Pop all elements
+	for !stack.IsEmpty() {
+		val, _ := stack.Pop()
+		fmt.Println("Popped:", val)
 	}
-}
-
-func TestStack() {
-	s := NewStack[int]()
-	fmt.Printf("is stack empty? : %v\n", s.IsEmpty())
-	s.Push(0)
-	s.Push(10)
-	s.Push(20)
-	s.Push(30)
-	s.Push(40)
-	popValue, _ := s.Pop()
-	fmt.Printf("pop value: %d\n", popValue)
-	s.Print()
-	fmt.Printf("size of stack: %d\n", s.Size())
-	peekValue, _ := s.Peek()
-	fmt.Printf("peek value: %d\n", peekValue)
-	fmt.Printf("is stack empty? : %v\n", s.IsEmpty())
 }
