@@ -1,9 +1,9 @@
 package main
 
 import (
-	"dsa/structure/stack"
+	"dsa/structure/queue"
 )
 
 func main() {
-	stack.TestLinkedStack()
+	queue.TestLinkedQueue()
 }
