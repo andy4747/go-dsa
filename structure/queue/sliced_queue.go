@@ -9,18 +9,19 @@ import (
 
 type SliceQueue[T comparable] struct {
 	items []T
-	head  int
+	front int
 }
 
 func NewSliceQueue[T comparable]() Queue[T] {
 	return &SliceQueue[T]{
 		items: make([]T, 0),
-		head:  0,
+		front: 0,
 	}
 }
 
-func (q *SliceQueue[T]) Enqueue(data T) {
+func (q *SliceQueue[T]) Enqueue(data T) error {
 	q.items = append(q.items, data)
+	return nil
 }
 
 func (q *SliceQueue[T]) Dequeue() (T, error) {
@@ -28,11 +29,11 @@ func (q *SliceQueue[T]) Dequeue() (T, error) {
 	if q.IsEmpty() {
 		return result, errors.New("dequeue on empty queue")
 	}
-	result = q.items[q.head]
-	q.head++
-	if q.head > len(q.items)/2 {
-		q.items = q.items[q.head:]
-		q.head = 0
+	result = q.items[q.front]
+	q.front++
+	if q.front > len(q.items)/2 {
+		q.items = q.items[q.front:]
+		q.front = 0
 	}
 	return result, nil
 }
@@ -42,12 +43,12 @@ func (q *SliceQueue[T]) Front() (T, error) {
 	if q.IsEmpty() {
 		return result, errors.New("lookup on empty queue")
 	}
-	result = q.items[q.head]
+	result = q.items[q.front]
 	return result, nil
 }
 
 func (q *SliceQueue[T]) Size() int {
-	return len(q.items) - q.head
+	return len(q.items) - q.front
 }
 
 func (q *SliceQueue[T]) IsEmpty() bool {
@@ -57,8 +58,8 @@ func (q *SliceQueue[T]) IsEmpty() bool {
 func (q *SliceQueue[T]) String() string {
 	var sb strings.Builder
 	sb.WriteString("[")
-	for i := q.head; i < len(q.items); i++ {
-		if i > q.head {
+	for i := q.front; i < len(q.items); i++ {
+		if i > q.front {
 			sb.WriteString(", ")
 		}
 		fmt.Fprintf(&sb, "%v", q.items[i])
@@ -68,42 +69,32 @@ func (q *SliceQueue[T]) String() string {
 }
 
 func TestSliceQueue() {
-
 	q := NewSliceQueue[int]()
-
 	// Enqueue elements
 	q.Enqueue(10)
 	q.Enqueue(20)
 	q.Enqueue(30)
-
 	fmt.Println("Queue:", q) // [10, 20, 30]
-
 	// Front element
 	front, _ := q.Front()
 	fmt.Println("Front:", front) // 10
-
 	// Dequeue elements
 	dequeued, _ := q.Dequeue()
 	fmt.Println("Dequeued:", dequeued) // 10
 	fmt.Println("Queue:", q)           // [20, 30]
-
 	// Enqueue more
 	q.Enqueue(40)
 	q.Enqueue(50)
 	fmt.Println("Queue:", q) // [20, 30, 40, 50]
 	fmt.Printf("String Method: %v\n", q.String())
-
 	// Multiple dequeues
 	q.Dequeue()
 	q.Dequeue()
 	fmt.Println("Queue:", q) // [40, 50]
-
 	// Verify size
 	fmt.Println("Size:", q.Size()) // 2
-
 	// Empty check
 	fmt.Println("Empty?", q.IsEmpty()) // false
-
 	// Dequeue remaining
 	q.Dequeue()
 	q.Dequeue()

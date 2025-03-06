@@ -26,7 +26,7 @@ func NewLinkedQueue[T comparable]() Queue[T] {
 	}
 }
 
-func (q *LinkedQueue[T]) Enqueue(data T) {
+func (q *LinkedQueue[T]) Enqueue(data T) error {
 	newNode := &Node[T]{
 		Value: data,
 		Next:  nil,
@@ -39,6 +39,7 @@ func (q *LinkedQueue[T]) Enqueue(data T) {
 		q.tail = newNode
 	}
 	q.size++
+	return nil
 }
 
 func (q *LinkedQueue[T]) Dequeue() (T, error) {

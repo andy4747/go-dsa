@@ -3,7 +3,7 @@ package queue
 import "fmt"
 
 type Queue[T comparable] interface {
-	Enqueue(data T)
+	Enqueue(data T) error
 	Dequeue() (T, error)
 	Front() (T, error)
 	Size() int

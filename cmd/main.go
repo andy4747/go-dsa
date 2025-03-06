@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	queue.TestLinkedQueue()
+	queue.TestCircularQueue()
 }
